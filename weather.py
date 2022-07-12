@@ -1,14 +1,16 @@
-import tkinter as tk
+from tkinter import* #for build up thia app
 import requests
 import time
+from PIL import ImageTk,Image #for image
 
+#function
 
-
-def getWeather(canvas):
+def getWeather(root):
     city = textField.get()
-    api = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=e2e408899334e1bd25c7c6b2f72b0300"
-    
+   #collect weather data
+    api = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=06c921750b9a82d8f5d1294e1586276f"
     json_data = requests.get(api).json()
+   # variables to store data
     condition = json_data['weather'][0]['main']
     temp = int(json_data['main']['temp'] - 273.15)
     min_temp = int(json_data['main']['temp_min'] - 273.15)
@@ -24,22 +26,28 @@ def getWeather(canvas):
     label1.config(text = final_info)
     label2.config(text = final_data)
 
-canvas = tk.Tk()
-canvas.geometry("600x500")
-canvas.title("Weather App")
-
-
-f = ("poppins", 15, "bold")
-t = ("poppins", 35, "bold")
-
-textField = tk.Entry(canvas, justify='center', width = 20, font = t)
-textField.pack(pady = 20)
+#main program
+    
+root=Tk()
+root.geometry("700x600")
+root.title("Weather App")
+root.iconbitmap("C:/Users/HP/Documents/png-transparent-computer-icons-wind-weather-symbol-logo-cloudy-weather-forecasting-black-business.png")
+img=Image.open("C:/Users/HP/Documents/3127236.png")
+resized_img=img.resize((150,150))
+img=ImageTk.PhotoImage(resized_img)
+img_label=Label(root,image=img)
+img_label.pack(padx=(10,500),pady=(10,10))
+f=("arial",15,"bold")
+t=("arial",35,"bold")
+textField=Entry(root,justify="center",width=15,font=t,bg="grey",fg="light grey")
+textField.pack(pady=15)
 textField.focus()
-textField.bind('<Return>', getWeather)
-
-label1 = tk.Label(canvas, font=t)
+textField.bind('<Return>',getWeather)
+label1=Label(root,font=t)
 label1.pack()
-label2 = tk.Label(canvas, font=f)
+label2=Label(font=f)
 label2.pack()
 
-canvas.mainloop()
+root.mainloop()
+
+
