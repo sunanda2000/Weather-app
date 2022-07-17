@@ -1,4 +1,4 @@
-from tkinter import* #for build up thia app
+from tkinter import* #for build up this app
 import requests
 import time
 from PIL import ImageTk,Image #for image
